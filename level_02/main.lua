@@ -16,12 +16,18 @@ COLORS = {
   SMILE = {132, 0, 50}
 }
 
+-- Screen resolution
 local W, H
+-- Heads-up Display (HUD) position
 local hud_x, hud_y
+-- Fighters!
 local player, enemy
+-- Will be used later
 local task
+-- Text font
 local font
 
+-- Creates a standard fighter
 local function makeFighter (name)
   return {
     name = name,
@@ -38,6 +44,7 @@ local function makeFighter (name)
   }
 end
 
+-- Ignore for now
 local function wait (time)
   return function (dt)
     time = time - dt
@@ -47,6 +54,10 @@ end
 
 --[[ Combat functions ]]--
 
+-- How the enemy AI chooses an action.
+-- 75% Melee
+-- 15% Shield
+-- 10% Shoot
 local function enemyAI ()
   local rng = love.math.random()
   if rng < 0.75 then
@@ -58,12 +69,16 @@ local function enemyAI ()
   end
 end
 
+-- Combat damage computation
+-- Basically, one fighter causes damage proportional to his power minus the
+-- target's armor, adding some bonuses. The log show the player what happened.
 local function damage (self, other)
-  local log = ""
-  log = log .. self.name .. " used " .. self.action .. "!\n"
+  local log = self.name .. " used " .. self.action .. "!\n"
+  -- Damage cannot be less than zero
   local damage = math.max(0, (self.power + self.power_bonus) -
                              (other.armor + other.armor_bonus))
   if damage > 0 then
+    -- Damage cannot surpass target's total hp
     other.damage = math.min(other.hp, other.damage + damage)
     log = log .. "Caused " .. damage .. " damage\n"
   else
@@ -72,8 +87,11 @@ local function damage (self, other)
   return log
 end
 
+-- This table contains the routines for each kind of action
 local actions = {}
 
+-- 'Melee' action
+-- Strong vs. 'Shield'
 function actions.Melee (self, other)
   local bonus = 0
   if other.action == 'Shield' then
@@ -82,10 +100,14 @@ function actions.Melee (self, other)
   self.power_bonus, self.armor_bonus = bonus, -10
 end
 
+-- 'Shield' action
+-- Strong vs. 'Shoot'
 function actions.Shield (self, other)
   self.power_bonus, self.armor_bonus = -self.power, 10
 end
 
+-- 'Shoot' action
+-- Strong vs. 'Melee'
 function actions.Shoot (self, other)
   local atk_bonus = 0
   if other.action == 'Melee' then
@@ -94,14 +116,20 @@ function actions.Shoot (self, other)
   self.power_bonus, self.armor_bonus = atk_bonus, 0
 end
 
+-- Combat routine! Here the blood is shed.
 local function combat ()
+  -- Player gets its action from the selected button
   player.action = button.getSelected() 
+  -- Enemy gets its action from the AI
   enemy.action = enemyAI()
+  -- Compute combat bonuses
   actions[player.action] (player, enemy)
   actions[enemy.action] (enemy, player)
+  -- Compute damage and generate text log
   local text = ""
   text = text .. damage(player, enemy, text)
   text = text .. damage(enemy, player, text)
+  -- Update the battle dialog
   dialog.setText(text)
 end
 
@@ -110,16 +138,22 @@ end
 function love.load ()
   W, H = love.graphics.getDimensions()
   hud_x, hud_y = 0, 3*H/4
+  -- This loads a custom font!
   font = love.graphics.newFont('fonts/SourceCodePro-Regular.ttf', 16)
+  -- Change backgound color
   love.graphics.setBackgroundColor(COLORS.BACKGROUND)
+  -- Create fighters
   player = makeFighter 'Player'
   enemy = makeFighter 'EvilSmile'
+  -- Create buttons
   button.new('Melee')
   button.new('Shield')
   button.new('Shoot')
+  -- Set initial dialog text
   dialog.setText("Choose action")
 end
 
+-- Not used for now!
 function love.update (dt)
   if task then
     if not task(dt) then
@@ -128,11 +162,14 @@ function love.update (dt)
   end
 end
 
+-- Handle keyboard input
 function love.keypressed (key)
+  -- ESC exits the game
   if key == 'escape' then
     love.event.push 'quit'
   end
   if not task then
+    -- Move cursors and select action
     if key == 'up' then
       button.cursorUp()
     elseif key == 'down' then
@@ -143,7 +180,8 @@ function love.keypressed (key)
   end
 end
 
-local player_stats_fmt = [[
+-- For displaying the player's stats
+local PLAYER_STATS = [[
 LIFE: %d/%d
 
 POWER: %d
@@ -151,6 +189,7 @@ POWER: %d
 ARMOR: %d
 ]]
 
+-- Quite complex now!
 function love.draw ()
   local g = love.graphics
   g.setFont(font)
@@ -162,10 +201,10 @@ function love.draw ()
     do -- Draw player stats
       g.setColor(COLORS.TEXT)
       g.rectangle('line', 10, 10, W/4-20, H-hud_y-20)
-      g.printf(player_stats_fmt:format(player.hp - player.damage,
-                                       player.hp,
-                                       player.power,
-                                       player.armor),
+      g.printf(PLAYER_STATS:format(player.hp - player.damage,
+                                   player.hp,
+                                   player.power,
+                                   player.armor),
                20, 20, W/4-40, 'left')
     end
     do -- Draw buttons
