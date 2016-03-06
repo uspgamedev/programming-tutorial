@@ -48,7 +48,7 @@ but you shouldn't memorize then. Just consult the [LÖVE
 wiki](https://love2d.org/wiki/Main_Page) instead!
 
 Stage 01
--------
+--------
 
 See how we used a variable `MAX_OBJECTS` in order to keep an information? That
 is the smart way of doing things, because if we need to change this value at
@@ -65,7 +65,7 @@ You may also experiment with different speed values and see what happens =).
 What would you say the objects' speed units are?
 
 Stage 02
--------
+--------
 
 Now let's do something interesting! You probably have noticed that the objects
 quickly march out of the screen and are missing forever. Change it so that they
@@ -86,7 +86,7 @@ make then change their move direction whenever they seem to have "collided"
 with the screen borders. Go!
 
 Stage 03
--------
+--------
 
 All this about moving objects on the screen is to eerie! We need some sound.
 Go to [Open Game Art](http://opengameart.org/) and find some nice bouncing or
@@ -101,7 +101,7 @@ it](https://love2d.org/wiki/Source:stop) before playing again so that all
 bouncings are heard.
 
 Stage 04
--------
+--------
 
 The next step is to make each bouncing ball have an individual color. It is very
 important that each one *keeps the same color from its crreation to the end of
@@ -113,7 +113,7 @@ In case you are wondering about how the circles are drawn, see
 [love.graphics.circle](https://love2d.org/wiki/love.graphics.circle).
 
 Stage 05
--------
+--------
 
 The last one was rather easy because this one is the first real challenge in
 this tutorial!
@@ -142,7 +142,24 @@ successfully making a toy, but not a game (challenge: what is the difference?).
 However, even a toy needs some form of *iteraction*. It's time to grab some user
 input!
 
+There are two ways of reading the user input. The easier way is to just ask a
+device's state whenever you want. For instance, if you want to know if the
+player is holding the left mouse button down, you can do
+
+```lua
+if love.mouse.isDown(1)
+  -- do stuff
+end
+```
+
+The task this time is to make all balls attracted to the player's cursor while
+the left button is down. You can get its position on screen with
+[love.mouse.getPosition()](https://love2d.org/wiki/love.mouse.getPosition).
+The atraction formula should be `k/d`, where `d` is the distance from the the
+balls to the cursor and `k` is a global constant that you should adjust until
+it becomes cool enough to watch =D.
 
 Extra Stage
 -----------
 
+WIP
