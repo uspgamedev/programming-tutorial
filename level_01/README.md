@@ -24,7 +24,7 @@ didatic purposes though. Don't always expect that =).
 You should keep the changes you make in the code from one stage to another!
 
 Stage 00
--------
+--------
 
 Read chapter *9. Game Loop* from Bob Nystrom's
 [Game Programming Patterns](http://gameprogrammingpatterns.com/contents.html)
@@ -155,11 +155,16 @@ end
 The task this time is to make all balls attracted to the player's cursor while
 the left button is down. You can get its position on screen with
 [love.mouse.getPosition()](https://love2d.org/wiki/love.mouse.getPosition).
-The atraction formula should be `k/d`, where `d` is the distance from the the
-balls to the cursor and `k` is a global constant that you should adjust until
-it becomes cool enough to watch =D.
+The atraction force should be inversely proportional to the distance from the
+ball to the cursor.
 
 Extra Stage
 -----------
 
-WIP
+For those that like a challenge. Add another input where the player can create
+balls and also define a move direction. Start with fewer balls and also make
+then vanish after 10 seconds. You can even add a visual feedback to show how
+much time they have left!
+
+Fell free to add anything else you want. Experiment away!
+
