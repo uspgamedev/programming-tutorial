@@ -85,3 +85,38 @@ volume](https://love2d.org/wiki/Source:setVolume) or [stop
 it](https://love2d.org/wiki/Source:stop) before playing again so that all
 bouncings are heard.
 
+Task 04
+-------
+
+The next step is to make each bouncing ball have an individual color. It is very
+important that each one *keeps the same color from its crreation to the end of
+the game's execution*. Consequently, you will probably have to change how the
+ball are created in `newObject()`! Also, check out [how to draw things with a
+different color](https://love2d.org/wiki/love.graphics.setColor).
+
+In case you are wondering about how the circles are drawn, see
+[love.graphics.circle](https://love2d.org/wiki/love.graphics.circle).
+
+Task 05
+-------
+
+The last one was rather easy because this one is the first real challenge in
+this tutorial!
+
+Time to make the balls bounc off each other. We will be simulating perfect
+elastic collisions with no friction, where all bodies have the exact same mass.
+In other words, when two ball collide, they velocity vectors are swapped!
+
+The idea is to check, pair by pair, which balls are colliding and then applying
+the collision effects. Do not worry about the amount of computational effort
+needed: even without any optimization, it will still be a piece of cake for any
+modern computer! As Donald Knuth said, **"premature optimization is the root of
+all evil!"**.
+
+Ouw recommendations for this task is to check for collisions from within a
+separate function, `handleCollisions()`, that should be called every game
+update. You should be able to guess how to properly iterate the object list by
+looking over the rest of the sample code. There is on gotcha though, but we hope
+you will see it coming =).
+
+
