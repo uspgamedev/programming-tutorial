@@ -22,8 +22,6 @@ local W, H
 local hud_x, hud_y
 -- Fighters!
 local player, enemy
--- Will be used later
-local task
 -- Text font
 local font
 
@@ -151,15 +149,6 @@ function love.load ()
   button.new('Shoot')
   -- Set initial dialog text
   dialog.setText("Choose action")
-end
-
--- Not used for now!
-function love.update (dt)
-  if task then
-    if not task(dt) then
-      task = nil
-    end
-  end
 end
 
 -- Handle keyboard input
