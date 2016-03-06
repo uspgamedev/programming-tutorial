@@ -21,9 +21,9 @@ world situation, since most often than not you'll have to deal with other
 people's code. We did try to make these ones well organized and clear for
 didatic purposes though. Don't always expect that =).
 
-You should keep the changes you make in the code from one task to another!
+You should keep the changes you make in the code from one stage to another!
 
-Task 00
+Stage 00
 -------
 
 Read chapter *9. Game Loop* from Bob Nystrom's
@@ -32,7 +32,22 @@ Read chapter *9. Game Loop* from Bob Nystrom's
 that our game loop here is actually not the best approach, but we'll deal with
 that soon enough.
 
-Task 01
+The LÖVE framework works by providing two separate tools: a set of callback
+routines and a vast set of specialized tools. The callbacks are routines **you**
+must define **with a specific name convention**. The framework will locate this
+routines and execute then when the time is right. For instance, the
+`love.load()` callback is executed only once, when the game is started. The
+`love.update(dt)` is executed every game frame, and characterizes the Game Loop
+in this framework. And `love.draw()` is called when it is time to render the
+game's view onto a system window of directly to the screen (in case the game is
+fullscreen). There are many others which you'll learn soon enough.
+
+The specialized tools are just a bunch of routines and classes you can use most
+of the time to build the behaviours of your game. You'll learn them as we go,
+but you shouldn't memorize then. Just consult the [LÖVE
+wiki](https://love2d.org/wiki/Main_Page) instead!
+
+Stage 01
 -------
 
 See how we used a variable `MAX_OBJECTS` in order to keep an information? That
@@ -49,7 +64,7 @@ You may also experiment with different speed values and see what happens =).
 
 What would you say the objects' speed units are?
 
-Task 02
+Stage 02
 -------
 
 Now let's do something interesting! You probably have noticed that the objects
@@ -70,7 +85,7 @@ beyond the borders, by not moving then when they would do so. Then, you also
 make then change their move direction whenever they seem to have "collided"
 with the screen borders. Go!
 
-Task 03
+Stage 03
 -------
 
 All this about moving objects on the screen is to eerie! We need some sound.
@@ -85,7 +100,7 @@ volume](https://love2d.org/wiki/Source:setVolume) or [stop
 it](https://love2d.org/wiki/Source:stop) before playing again so that all
 bouncings are heard.
 
-Task 04
+Stage 04
 -------
 
 The next step is to make each bouncing ball have an individual color. It is very
@@ -97,7 +112,7 @@ different color](https://love2d.org/wiki/love.graphics.setColor).
 In case you are wondering about how the circles are drawn, see
 [love.graphics.circle](https://love2d.org/wiki/love.graphics.circle).
 
-Task 05
+Stage 05
 -------
 
 The last one was rather easy because this one is the first real challenge in
@@ -113,10 +128,21 @@ needed: even without any optimization, it will still be a piece of cake for any
 modern computer! As Donald Knuth said, **"premature optimization is the root of
 all evil!"**.
 
-Ouw recommendations for this task is to check for collisions from within a
+Ouw recommendations for this stage is to check for collisions from within a
 separate function, `handleCollisions()`, that should be called every game
 update. You should be able to guess how to properly iterate the object list by
 looking over the rest of the sample code. There is on gotcha though, but we hope
 you will see it coming =).
 
+Stage 06
+--------
+
+But this is not a game yet! And it will not be! We will finish this level by
+successfully making a toy, but not a game (challenge: what is the difference?).
+However, even a toy needs some form of *iteraction*. It's time to grab some user
+input!
+
+
+Extra Stage
+-----------
 
