@@ -47,8 +47,8 @@ Stage 02
 
 You may have noticed that it is impossible to know how much life the Evil Smile
 has left. Make a lifebar.lua module that knows how to draw a fighter's life
-bar. Then draw the Evil Smile's life bar on top of or below it. Also draw one
-for yourself in addition to the numeric display. Choose wherever you think is
+bar. Then draw the Evil Smile's life bar above or below it. Also draw one
+for the player in addition to the numeric display. Choose wherever you think is
 best to place it.
 
 Stage 03
