@@ -84,6 +84,19 @@ power and/or bonus so that the game feels "fair".
 Stage 06
 --------
 
+ANIMATION TIME!!
+
+The game is too static, lets make things more ~juicy~. In this stage, create an animation
+for every action that the Evil Smile receives and does. You can do this hard-coded, or
+learn how to use > quads < on love:
+
+https://love2d.org/wiki/Quad
+
+Don't forget to "stop" players actions until all animations have ended (or are skipped if
+ you implement that).
+
 Extra Stage
 -----------
+
+
 
