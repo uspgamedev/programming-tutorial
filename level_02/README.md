@@ -75,11 +75,11 @@ Stage 05
 
 How about we balance the game? If you haven't noticed by now, the actions aren't
 really all that balanced...Make yourself a diagram for every possible combination
-of actions and try to figure witch one is the most powerful.
+of actions and try to figure which one is the most powerful.
 
-Now, make that, after using this most powerful action, the player that used it
-can't use any actions next turn. If you think is necessary, change each action's
-power and/or bonus so that the game feels "fair".
+Now, make it so that, after using this most powerful action, the player that used it
+can't use any actions next turn (that is, he or she loses the turn). If you think is
+necessary, change each action's power and/or bonus so that the game feels "fair".
 
 Stage 06
 --------
@@ -88,12 +88,10 @@ ANIMATION TIME!!
 
 The game is too static, lets make things more ~juicy~. In this stage, create an animation
 for every action that the Evil Smile receives and does. You can do this hard-coded, or
-learn how to use > quads < on love:
+learn how to use [quads](https://love2d.org/wiki/Quad) on Löve.
 
-https://love2d.org/wiki/Quad
-
-Don't forget to "stop" players actions until all animations have ended (or are skipped if
- you implement that).
+Don't forget to "stop" players actions until all animations have ended (or make them be
+interrupted if you prefer).
 
 Extra Stage
 -----------
