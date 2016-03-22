@@ -38,7 +38,9 @@ local function makeFighter (name)
     action = 'None',
     -- bonuses
     power_bonus = 0,
-    armor_bonus = 0
+    armor_bonus = 0,
+    -- reloading
+    reloading = false
   }
 end
 
@@ -48,6 +50,13 @@ local function wait (time)
     time = time - dt
     return time > 0
   end
+end
+
+-- IDIOT STALL
+function stall (time)
+    stall = true
+    Time = time
+     
 end
 
 --[[ Combat functions ]]--
@@ -112,23 +121,71 @@ function actions.Shoot (self, other)
     atk_bonus = 20
   end
   self.power_bonus, self.armor_bonus = atk_bonus, 0
+
+end
+
+function actions.Reload(self)
+  --Do nothing
 end
 
 -- Combat routine! Here the blood is shed.
 local function combat ()
-  -- Player gets its action from the selected button
-  player.action = button.getSelected() 
-  -- Enemy gets its action from the AI
-  enemy.action = enemyAI()
-  -- Compute combat bonuses
-  actions[player.action] (player, enemy)
-  actions[enemy.action] (enemy, player)
+  if player.reloading == true then
+    player.action = "Reload"
+    actions[player.action] (player)
+  else
+    -- Player gets its action from the selected button
+    player.action = button.getSelected() 
+    -- Compute combat bonuses
+    actions[player.action] (player, enemy)
+  end
+
+  if enemy.reloading == true then
+    enemy.action = "Reload"
+    actions[enemy.action] (enemy)
+  else
+    -- Enemy gets its action from the AI
+    enemy.action = enemyAI()
+    -- Compute combat bonuses
+    actions[enemy.action] (enemy, player)
+  end
+
+
   -- Compute damage and generate text log
   local text = ""
-  text = text .. damage(player, enemy, text)
-  text = text .. damage(enemy, player, text)
+  
+  if player.reloading == true then
+    text = text .. player.name .. " is reloading\n"
+    player.reloading = false
+  else
+    text = text .. damage(player, enemy, text)
+  end
+
+  if enemy.reloading == true then
+    text = text .. enemy.name .. " is reloading\n"
+    enemy.reloading = false
+  else
+    text = text .. damage(enemy, player, text)
+  end
+
+
+  if enemy.action == "Shoot" then
+    enemy.reloading = true
+  end
+
+  if player.action == "Shoot" then
+    player.reloading = true
+  end
+
   -- Update the battle dialog
   dialog.setText(text)
+
+  if player.reloading == true then
+
+    stall(40)
+
+  end
+
 end
 
 --[[ Main game functions ]]--
@@ -149,6 +206,9 @@ function love.load ()
   button.new('Shoot')
   -- Set initial dialog text
   dialog.setText("Choose action")
+
+  stall = false
+  Time = 0
 end
 
 -- Handle keyboard input
@@ -157,7 +217,7 @@ function love.keypressed (key)
   if key == 'escape' then
     love.event.push 'quit'
   end
-  if not task then
+  if not task and player.reloading == false then
     -- Move cursors and select action
     if key == 'up' then
       button.cursorUp()
@@ -220,6 +280,17 @@ function love.draw ()
     g.circle('fill', 25, -20, 10, 8)
     g.circle('fill', -25, -20, 10, 8)
     g.pop()
+  end
+end
+
+function love.update(dt)
+    Time = Time - dt
+  if Time < 0 then
+    Time = 0
+    if stall == true then
+      combat()
+    end
+    stall = false
   end
 end
 
