@@ -62,8 +62,24 @@ Add sounds for:
 Stage 04
 --------
 
+You can notice that the game never ends. Even after the Evil Smile has died
+(disappeared), the game still goes on forever! Let's change this.
+
+Create an ending for the program, that happens if the player has reached
+0 hp, or if the Evil Smile has been defeated. Make something appear in the dialog
+box and stop the player from making any more actions. If you would like, you can
+draw something on screen to better illustrate that the battle is over
+
 Stage 05
 --------
+
+How about we balance the game? If you haven't noticed by now, the actions aren't
+really all that balanced...Make yourself a diagram for every possible combination
+of actions and try to figure witch one is the most powerful.
+
+Now, make that, after using this most powerful action, the player that used it
+can't use any actions next turn. If you think is necessary, change each action's
+power and/or bonus so that the game feels "fair".
 
 Stage 06
 --------
