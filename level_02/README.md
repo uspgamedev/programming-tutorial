@@ -96,5 +96,9 @@ interrupted if you prefer).
 Extra Stage
 -----------
 
+* More monsters!
+* More AIs!
+* XP & Level up!
+
 
 
