@@ -122,7 +122,7 @@ Stage 05
 The last one was rather easy because this one is the first real challenge in
 this tutorial!
 
-Time to make the balls bounc off each other. We will be simulating perfect
+Time to make the balls bounce off each other. We will be simulating perfect
 elastic collisions with no friction, where all bodies have the exact same mass.
 In other words, when two ball collide, they velocity vectors are swapped!
 
@@ -132,7 +132,7 @@ needed: even without any optimization, it will still be a piece of cake for any
 modern computer! As Donald Knuth said, **"premature optimization is the root of
 all evil!"**.
 
-Ouw recommendations for this stage is to check for collisions from within a
+Our recommendations for this stage is to check for collisions from within a
 separate function, `handleCollisions()`, that should be called every game
 update. You should be able to guess how to properly iterate the object list by
 looking over the rest of the sample code. There is on gotcha though, but we hope
