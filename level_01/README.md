@@ -107,10 +107,11 @@ Stage 04
 --------
 
 The next step is to make each bouncing ball have an individual color. It is very
-important that each one *keeps the same color from its crreation to the end of
-the game's execution*. Consequently, you will probably have to change how the
-ball are created in `newObject()`! Also, check out [how to draw things with a
-different color](https://love2d.org/wiki/love.graphics.setColor).
+important that each one of them *keeps the same color from the moment it is
+created until the end of the game's execution*. Consequently, you will probably
+have to change how the ball are created in `newObject()`! Also, check out [how
+to draw things with a different
+color](https://love2d.org/wiki/love.graphics.setColor).
 
 In case you are wondering about how the circles are drawn, see
 [love.graphics.circle](https://love2d.org/wiki/love.graphics.circle).
