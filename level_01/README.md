@@ -49,6 +49,9 @@ wiki](https://love2d.org/wiki/Main_Page) instead!
 
 Stage 01
 --------
+Now open `main.lua` and give it a superficial look. Try and guess what each part
+does. When you are somewhat convinced you know what is going on, or are just
+tired of trying, continue from here.
 
 See how we used a variable `MAX_OBJECTS` in order to keep an information? That
 is the smart way of doing things, because if we need to change this value at
