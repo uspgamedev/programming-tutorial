@@ -39,7 +39,7 @@ routines and execute then when the time is right. For instance, the
 `love.load()` callback is executed only once, when the game is started. The
 `love.update(dt)` is executed every game frame, and characterizes the Game Loop
 in this framework. And `love.draw()` is called when it is time to render the
-game's view onto a system window of directly to the screen (in case the game is
+game's view onto a system window or directly to the screen (in case the game is
 fullscreen). There are many others which you'll learn soon enough.
 
 The specialized tools are just a bunch of routines and classes you can use most
