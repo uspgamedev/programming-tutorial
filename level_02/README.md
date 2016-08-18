@@ -51,7 +51,7 @@ function love.keypressed (key)
   elseif key == 'z' then
     player.action = button.getSelected()
     enemy.action = enemyAI()
-    combat(player, enemy)
+    combat.go(player, enemy)
   end
   -- snip
 end
