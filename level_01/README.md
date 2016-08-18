@@ -85,7 +85,7 @@ end
 
 But let's make this in two steps. First, make it so that they just cannot go
 beyond the borders, by not moving then when they would do so. Then, you also
-make then change their move direction whenever they seem to have "collided"
+make them change their move direction whenever they seem to have "collided"
 with the screen borders. Go!
 
 Stage 03
