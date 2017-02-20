@@ -42,6 +42,21 @@ need to make a few changes in order to make combat.lua get access to all the
 information it needs. However, always avoid making more global variables, since
 it reduces encapsulation! Prefer passing parameters for now.
 
+Hint: make `player` and `enemy` be parameters to the `combat()` function, and
+set their actions *before* calling `combat()`. Something like:
+
+```lua
+function love.keypressed (key)
+  -- snip
+  elseif key == 'z' then
+    player.action = button.getSelected()
+    enemy.action = enemyAI()
+    combat.go(player, enemy)
+  end
+  -- snip
+end
+```
+
 Stage 02
 --------
 

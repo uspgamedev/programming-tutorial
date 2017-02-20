@@ -39,7 +39,7 @@ routines and execute then when the time is right. For instance, the
 `love.load()` callback is executed only once, when the game is started. The
 `love.update(dt)` is executed every game frame, and characterizes the Game Loop
 in this framework. And `love.draw()` is called when it is time to render the
-game's view onto a system window of directly to the screen (in case the game is
+game's view onto a system window or directly to the screen (in case the game is
 fullscreen). There are many others which you'll learn soon enough.
 
 The specialized tools are just a bunch of routines and classes you can use most
@@ -49,6 +49,9 @@ wiki](https://love2d.org/wiki/Main_Page) instead!
 
 Stage 01
 --------
+Now open `main.lua` and give it a superficial look. Try and guess what each part
+does. When you are somewhat convinced you know what is going on, or are just
+tired of trying, continue from here.
 
 See how we used a variable `MAX_OBJECTS` in order to keep an information? That
 is the smart way of doing things, because if we need to change this value at
@@ -80,6 +83,7 @@ if object.x < 0 or object.x > W then
 end
 ```
 
+<<<<<<< HEAD
 But let's make this in two steps.
 
 1. Make it so that they just cannot go beyond the borders, by not moving then
@@ -91,6 +95,12 @@ But let's make this in two steps.
    vertical wall.
 
 Go!
+=======
+But let's make this in two steps. First, make it so that they just cannot go
+beyond the borders, by not moving then when they would do so. Then, you also
+make them change their move direction whenever they seem to have "collided"
+with the screen borders. Go!
+>>>>>>> ffab9a30ceefc78e76f15f9b688e840316284ba0
 
 Stage 03
 --------
@@ -120,10 +130,11 @@ Stage 04
 --------
 
 The next step is to make each bouncing ball have an individual color. It is very
-important that each one *keeps the same color from its creation to the end of
-the game's execution*. Consequently, you will probably have to change how the
-ball are created in `newObject()`! Also, check out [how to draw things with a
-different color](https://love2d.org/wiki/love.graphics.setColor).
+important that each one of them *keeps the same color from the moment it is
+created until the end of the game's execution*. Consequently, you will probably
+have to change how the balls are created in `newObject()`! Also, check out [how
+to draw things with a different
+color](https://love2d.org/wiki/love.graphics.setColor).
 
 In case you are wondering about how the circles are drawn, see
 [love.graphics.circle](https://love2d.org/wiki/love.graphics.circle).
