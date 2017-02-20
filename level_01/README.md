@@ -15,7 +15,7 @@ In this lesson, you'll learn:
 Much of this you'll figure out by trying to understand the initial code that
 comes with this lesson. All lessons will use the same format: an unifinished
 mini-game will be provided, and you'll be tasked with adding, removing or
-changing feature in it. For that you'll have to look through the code and guess
+changing features in it. For that you'll have to look through the code and guess
 what each of its parts do, then play along. This actually reflects a very real
 world situation, since most often than not you'll have to deal with other
 people's code. We did try to make these ones well organized and clear for
@@ -44,7 +44,7 @@ fullscreen). There are many others which you'll learn soon enough.
 
 The specialized tools are just a bunch of routines and classes you can use most
 of the time to build the behaviours of your game. You'll learn them as we go,
-but you shouldn't memorize then. Just consult the [LÖVE
+but you shouldn't memorize then. Learn to consult the [LÖVE
 wiki](https://love2d.org/wiki/Main_Page) instead!
 
 Stage 01
@@ -80,31 +80,47 @@ if object.x < 0 or object.x > W then
 end
 ```
 
-But let's make this in two steps. First, make it so that they just cannot go
-beyond the borders, by not moving then when they would do so. Then, you also
-make then change their move direction whenever they seem to have "collided"
-with the screen borders. Go!
+But let's make this in two steps.
+
+1. Make it so that they just cannot go beyond the borders, by not moving then
+   when they would do so. This can be done by rewinding the last movement when
+   you hit the border.
+2. Then, you also make then change their move direction whenever they seem to
+   have "collided" with the screen borders. You can just reflect the x-axis or
+   y-axis speed, depending on whether the ball collides with a horizontal or a
+   vertical wall.
+
+Go!
 
 Stage 03
 --------
 
 All this about moving objects on the screen is to eerie! We need some sound.
 Go to [Open Game Art](http://opengameart.org/) and find some nice bouncing or
-hitting sound effects in OGG or WAV format. Download then into this lesson's
+hitting sound effects in OGG or WAV format. Download them into this lesson's
 folder, and rename it to "bounce.ogg" or "bounce.wav", respectively.
 
 Then check out [how to load and play a sound
 effect](https://love2d.org/wiki/love.audio.newSource) and make it so that the
 sound plays whenever an object hits a wall. You may have to [adjust its
-volume](https://love2d.org/wiki/Source:setVolume) or [stop
-it](https://love2d.org/wiki/Source:stop) before playing again so that all
-bouncings are heard.
+volume](https://love2d.org/wiki/Source:setVolume).
+
+**Hint:** use the `bounce_sfx` variable we provided in the code! Load the source
+in `love.load` then call `play` in the rights part of the code. Why do it this
+way? To save memory! Think about it as homework, or ask someone =).
+
+You will notice that the sound does not play all the times it should. Some balls
+hit the borders but there is no sound playback! This happens because so far we
+have only monophonic sound. The simple way to solve this is to [stop the
+sound](https://love2d.org/wiki/Source:stop) before playing it every time. This
+is not the best approach, but anything better is too complicated for a first
+tutorial. You can try it though =).
 
 Stage 04
 --------
 
 The next step is to make each bouncing ball have an individual color. It is very
-important that each one *keeps the same color from its crreation to the end of
+important that each one *keeps the same color from its creation to the end of
 the game's execution*. Consequently, you will probably have to change how the
 ball are created in `newObject()`! Also, check out [how to draw things with a
 different color](https://love2d.org/wiki/love.graphics.setColor).
@@ -115,12 +131,12 @@ In case you are wondering about how the circles are drawn, see
 Stage 05
 --------
 
-The last one was rather easy because this one is the first real challenge in
-this tutorial!
+The last one was rather easy because this one is the hardest challenge in this
+tutorial!
 
-Time to make the balls bounc off each other. We will be simulating perfect
+Time to make the balls bounce off each other. We will be simulating perfect
 elastic collisions with no friction, where all bodies have the exact same mass.
-In other words, when two ball collide, they velocity vectors are swapped!
+In other words, when two ball collide, their velocity vectors are swapped!
 
 The idea is to check, pair by pair, which balls are colliding and then applying
 the collision effects. Do not worry about the amount of computational effort
@@ -128,19 +144,26 @@ needed: even without any optimization, it will still be a piece of cake for any
 modern computer! As Donald Knuth said, **"premature optimization is the root of
 all evil!"**.
 
-Ouw recommendations for this stage is to check for collisions from within a
+Our recommendations for this stage is to check for collisions from within a
 separate function, `handleCollisions()`, that should be called every game
 update. You should be able to guess how to properly iterate the object list by
-looking over the rest of the sample code. There is on gotcha though, but we hope
-you will see it coming =).
+looking over the rest of the sample code.
+
+How do you know when two circles are colliding?
+
+There are a few gotchas here:
+
+1. You will soon realize you should not *really* check everything pair by pair.
+2. Just swapping the velocity vectors is not always enough! Not if the balls
+   are too deep into each other.
 
 Stage 06
 --------
 
 But this is not a game yet! And it will not be! We will finish this level by
 successfully making a toy, but not a game (challenge: what is the difference?).
-However, even a toy needs some form of *iteraction*. It's time to grab some user
-input!
+However, even a toy needs some form of *interaction*. It's time to grab some
+user input!
 
 There are two ways of reading the user input. The easier way is to just ask a
 device's state whenever you want. For instance, if you want to know if the
@@ -157,6 +180,9 @@ the left button is down. You can get its position on screen with
 [love.mouse.getPosition()](https://love2d.org/wiki/love.mouse.getPosition).
 The atraction force should be inversely proportional to the distance from the
 ball to the cursor.
+
+Things might get a little crazy, but that is ok. If you want, you can try to
+stabilize the game as an extra exercise.
 
 Extra Stage
 -----------

@@ -8,11 +8,14 @@
 -- Window resolution
 local W, H
 
+-- Maximum number of obejcts
+local MAX_OBJECTS
+
 -- The list of all game objects
 local objects
 
--- Maximum number of obejcts
-local MAX_OBJECTS
+-- Holds the source object containing the "bounce" sound effect
+local bounce_sfx
 
 --[[ Auxiliary functions ]]--
 
@@ -54,6 +57,7 @@ function love.load ()
   for i=1,MAX_OBJECTS do
     table.insert(objects, newObject())
   end
+  bounce_sfx = nil
 end
 
 --- Update the game's state, which in this case means properly moving each
