@@ -95,7 +95,7 @@ your AI might not work as you expected!
 It's time to enhance the game's thematic experience. Try implementing mechanics
 that fit into the game's theme and still increases its tactical depth. Think
 buffing, healing and magical damage. By this time you should be OK by yourself.
-We suggest healing.
+We suggest healing, since actually it's very similar to damage.
 
 ## Extra Stage
 
