@@ -83,7 +83,6 @@ if object.x < 0 or object.x > W then
 end
 ```
 
-<<<<<<< HEAD
 But let's make this in two steps.
 
 1. Make it so that they just cannot go beyond the borders, by not moving then
@@ -95,12 +94,6 @@ But let's make this in two steps.
    vertical wall.
 
 Go!
-=======
-But let's make this in two steps. First, make it so that they just cannot go
-beyond the borders, by not moving then when they would do so. Then, you also
-make them change their move direction whenever they seem to have "collided"
-with the screen borders. Go!
->>>>>>> ffab9a30ceefc78e76f15f9b688e840316284ba0
 
 Stage 03
 --------
