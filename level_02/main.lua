@@ -74,18 +74,22 @@ local selected_unit
 
 -- HELPER FUNCTIONS
 
-local function makeUnit (side, pos, num)
+-- GAME LOGIC
+
+local function makeUnit (side, pos, id)
   return {
     hp = 100,
     atk = 20,
     side = side,
     pos = pos,
-    num = num,
+    id = id,
     alive = true
   }
 end
 
--- GAME LOGIC
+local function name(unit)
+  return unit.side .. '-' .. unit.id
+end
 
 function love.load ()
   -- Load map
@@ -114,7 +118,19 @@ function love.load ()
 end
 
 local function attack (attacker, defender)
+  print(('Unit %s caused %d damage on unit %s'):format(name(attacker),
+                                                       attacker.atk,
+                                                       name(defender)))
+  defender.hp = math.max(0, defender.hp - attacker.atk)
+  if defender.hp == 0 then
+    print(('Unit %s perished!'):format(name(defender)))
+    defender.alive = false
+    map[defender.pos[1]][defender.pos[2]].fg = false
+  end
+end
 
+local function miss (attacker)
+  print(('Unit %s attacked the air!'):format(name(attacker)))
 end
 
 local function enemyTurn ()
@@ -137,32 +153,22 @@ local function enemyTurn ()
   map[new_pos[1]][new_pos[2]].fg = enemy
   enemy.pos[1] = new_pos[1]
   enemy.pos[2] = new_pos[2]
-  --
-  local att_pos = {}
+  -- Try to attack all sides in sequence until a player unit is hit
+  local target_pos = {}
   for name,dir in pairs(DIRS) do
-    att_pos[1] = enemy.pos[1] + dir[1]
-    att_pos[2] = enemy.pos[2] + dir[2]
-    if att_pos[1] <= HEIGHT and att_pos[1] >= 1 then
-      if att_pos[2] <= WIDTH and att_pos[2] >= 1 then
-        local other = map[att_pos[1]][att_pos[2]].fg
-        if other and other.side == 'player' then
-          other.hp = other.hp - enemy.atk
-          print('Enemy unit ' .. enemy.num .. ' done ' .. enemy.atk ..
-                ' damage at ally unit ' .. other.num .. '!')
-          if other.hp == 0 then
-            print('Ally unit ' .. other.num .. ' died!')
-            other.alive = false
-            map[att_pos[1]][att_pos[2]].fg = false
-          end
-          break
+    target_pos[1] = enemy.pos[1] + dir[1]
+    target_pos[2] = enemy.pos[2] + dir[2]
+    if target_pos[1] <= HEIGHT and target_pos[1] >= 1 then
+      if target_pos[2] <= WIDTH and target_pos[2] >= 1 then
+        local target = map[target_pos[1]][target_pos[2]].fg
+        if target and target.side == 'player' then
+          attack(enemy, target)
+          return
         end
       end
     end
   end
-  if not att then
-    print('Enemy unit ' .. enemy.num .. ' done ' .. 0 ..
-          ' damage to the air!')
-  end
+  miss(enemy)
 end
 
 function love.keypressed (key)
@@ -179,7 +185,7 @@ function love.keypressed (key)
     elseif key == 'return' and target_unit then
       if target_unit.side == 'player' then
         selected_unit = target_unit
-        print('Picked unit ' .. selected_unit.num)
+        print('Picked unit ' .. name(selected_unit))
         state = STATES.MOVE_UNIT
       end
     end
@@ -211,25 +217,16 @@ function love.keypressed (key)
     elseif key == 'return' then
       if target_unit then
         if target_unit.side == 'cpu' then
-          target_unit.hp = target_unit.hp - selected_unit.atk
-          print('Ally unit ' .. selected_unit.num .. ' done ' .. selected_unit.atk ..
-                ' damage at enemy unit ' .. target_unit.num .. '!')
-          if target_unit.hp <= 0 then
-            print('Enemy unit ' .. target_unit.num .. ' died!')
-            target_unit.alive = false
-            map[cursor[1]][cursor[2]].fg = false
-          end
-          state = STATES.PICK_UNIT
-          enemyTurn()
+          attack(selected_unit, target_unit)
         else
-          print('You can\'t attack your own unit!')
+          print("You can't attack your own unit!")
+          return
         end
       else
-        print('Ally unit ' .. selected_unit.num .. ' done ' .. 0 ..
-              ' damage to the air!')
-        state = STATES.PICK_UNIT
-        enemyTurn()
+        miss(selected_unit)
       end
+      state = STATES.PICK_UNIT
+      enemyTurn()
     end
   end
 end
@@ -254,7 +251,7 @@ function love.draw ()
           g.setColor(255, 0, 0)
         end
         g.polygon('fill', TILE_SIZE/2, 0, TILE_SIZE, TILE_SIZE, 0, TILE_SIZE)
-        g.print(target.num, 0, 0)
+        g.print(target.id, 0, 0)
       end
       g.pop()
     end
