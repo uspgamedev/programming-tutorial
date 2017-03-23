@@ -53,10 +53,7 @@ check the documentation).
 
 ## Stage 03
 
-What happens if we try to move our unit to a location where there is already
-another unit occupying it? Well, we know that two units can not be in the same
-place, so we probably got a problem here. You must do something to avoid the
-existence of that case.
+### Part A
 
 Let's go further, you might have noticed that every unit can move wherever the
 player or the Enemy AI wants, that makes the game less tactical and hence less
@@ -64,9 +61,22 @@ player or the Enemy AI wants, that makes the game less tactical and hence less
 single unit can move per turn. You should decide this value for the limit taking
 into consideration this question: “Which value makes the game fun to play?”.
 
-## Stage 04
+### Part B
 
-~~Now that you have implemented a way where the units can not be moved to certain places (everywhere there is another unit) and set a limit for the number of movements one unit can do. Why not adding some obstacles in the game to make it even more tactical? The players will have to think more about the moves and that is something interesting for a strategy game like ours.~~
+What happens if we try to move our unit to a location where there is already
+another unit occupying it? Well, we know that two units can not be in the same
+place, so we probably got a problem here. You must do something to avoid the
+existence of that case.
+
+### Part C
+
+Now that you have implemented a way where the units can not be moved to certain
+places (everywhere where there is another unit) and set a limit for the number
+of movements one unit can do, why not add some obstacles in the game to make it
+even more tactical? The players will have to think more about the moves and that
+is something interesting for a strategy game like ours.
+
+## Stage 04
 
 Our game is not very smooth when it comes to animation. When we move a unit it
 simply teleports to the position we selected. Your job is to implement a
@@ -82,10 +92,10 @@ your AI might not work as you expected!
 
 ## Stage 06
 
-Create new state buff/heal
 It's time to enhance the game's thematic experience. Try implementing mechanics
 that fit into the game's theme and still increases its tactical depth. Think
 buffing, healing and magical damage. By this time you should be OK by yourself.
+We suggest healing.
 
 ## Extra Stage
 
