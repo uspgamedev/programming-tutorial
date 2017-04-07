@@ -189,8 +189,8 @@ ball to the cursor. Something like:
 local force_dir_x, force_dir_y = mouse_x - object.x, mouse_y - object.y
 local distance = math.sqrt(force_dir_x^2 + force_dir_y^2)
 local force = 1.0 / distance
-object.dir_x = object.dir_x + force_dir_x*dt
-object.dir_y = object.dir_y + force_dir_y*dt
+object.dir_x = object.dir_x + force*force_dir_x/distance*dt
+object.dir_y = object.dir_y + force*force_dir_y/distance*dt
 ```
 
 Notice that this makes objects' speed vary, which means that the OBJECT_SPEED
