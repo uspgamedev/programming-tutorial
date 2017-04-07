@@ -193,6 +193,10 @@ object.dir_x = object.dir_x + force_dir_x*dt
 object.dir_y = object.dir_y + force_dir_y*dt
 ```
 
+Notice that this makes objects' speed vary, which means that the OBJECT_SPEED
+variable we defined in Stage 01 is no longer needed. The full velocity vector
+of each object will be represented by the (dir_x, dir_y) fields.
+
 Things might get a little crazy, but that is ok. If you want, you can try to
 stabilize the game as an extra exercise.
 
